@@ -1,4 +1,4 @@
-package fuzs.sheepvariety.world.entity.animal;
+package fuzs.sheepvariety.world.entity.animal.sheep;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

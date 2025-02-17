@@ -17,7 +17,7 @@ public class ModBiomeTagProvider extends AbstractTagProvider<Biome> {
 
     @Override
     public void addTags(HolderLookup.Provider registries) {
-        this.tag(ModRegistry.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
+        this.tag(ModRegistry.SPAWNS_COLD_VARIANT_FARM_ANIMALS_BIOME_TAG)
                 .add(Biomes.SNOWY_PLAINS)
                 .add(Biomes.ICE_SPIKES)
                 .add(Biomes.FROZEN_PEAKS)
@@ -40,7 +40,7 @@ public class ModBiomeTagProvider extends AbstractTagProvider<Biome> {
                 .add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
                 .add(Biomes.WINDSWEPT_HILLS)
                 .add(Biomes.STONY_PEAKS);
-        this.tag(ModRegistry.SPAWNS_WARM_VARIANT_FARM_ANIMALS)
+        this.tag(ModRegistry.SPAWNS_WARM_VARIANT_FARM_ANIMALS_BIOME_TAG)
                 .add(Biomes.DESERT)
                 .add(Biomes.WARM_OCEAN)
                 .addTag(BiomeTags.IS_JUNGLE)

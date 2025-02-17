@@ -3,19 +3,13 @@ package fuzs.sheepvariety;
 import fuzs.puzzleslib.api.core.v1.ModConstructor;
 import fuzs.puzzleslib.api.core.v1.context.DataPackRegistriesContext;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
-import fuzs.puzzleslib.api.event.v1.core.EventResult;
 import fuzs.puzzleslib.api.event.v1.entity.ServerEntityLevelEvents;
+import fuzs.puzzleslib.api.event.v1.entity.living.BabyEntitySpawnCallback;
+import fuzs.puzzleslib.api.event.v1.entity.player.PlayerInteractEvents;
+import fuzs.sheepvariety.handler.SheepSpawnVariantHandler;
 import fuzs.sheepvariety.init.ModRegistry;
-import fuzs.sheepvariety.world.entity.animal.SheepVariant;
-import fuzs.sheepvariety.world.entity.animal.SheepVariants;
-import fuzs.sheepvariety.world.entity.variant.SpawnContext;
-import net.minecraft.core.Holder;
+import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.animal.Sheep;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,17 +25,9 @@ public class SheepVariety implements ModConstructor {
     }
 
     private static void registerEventHandlers() {
-        ServerEntityLevelEvents.SPAWN.register((Entity entity, ServerLevel serverLevel, @Nullable EntitySpawnReason entitySpawnReason) -> {
-            if (entitySpawnReason != null && entity instanceof Sheep) {
-                SheepVariants.selectVariantToSpawn(serverLevel.random,
-                                serverLevel.registryAccess(),
-                                SpawnContext.create(serverLevel, entity.blockPosition()))
-                        .ifPresent((Holder.Reference<SheepVariant> holder) -> {
-                            ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.set(entity, holder);
-                        });
-            }
-            return EventResult.PASS;
-        });
+        ServerEntityLevelEvents.SPAWN.register(SheepSpawnVariantHandler::onEntitySpawn);
+        BabyEntitySpawnCallback.EVENT.register(SheepSpawnVariantHandler::onBabyEntitySpawn);
+        PlayerInteractEvents.USE_ENTITY.register(SheepSpawnVariantHandler::onUseEntity);
     }
 
     @Override

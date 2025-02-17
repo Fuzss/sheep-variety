@@ -3,11 +3,11 @@ package fuzs.sheepvariety.client.renderer.entity.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import fuzs.sheepvariety.client.model.geom.ModModelLayers;
 import fuzs.sheepvariety.client.renderer.entity.state.SheepVariantRenderState;
-import fuzs.sheepvariety.world.entity.animal.SheepVariant;
+import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -25,8 +25,16 @@ public class SheepHornsLayer extends RenderLayer<SheepRenderState, SheepModel> {
 
     public SheepHornsLayer(RenderLayerParent<SheepRenderState, SheepModel> renderer, EntityModelSet entityModelSet) {
         super(renderer);
-        this.adultModel = new SheepHornsModel(entityModelSet.bakeLayer(ModModelLayers.SHEEP_HORNS));
-        this.babyModel = new SheepHornsModel(entityModelSet.bakeLayer(ModModelLayers.SHEEP_BABY_HORNS));
+        this.adultModel = new SheepModel(entityModelSet.bakeLayer(ModModelLayers.SHEEP_HORNS));
+        this.babyModel = new SheepModel(entityModelSet.bakeLayer(ModModelLayers.SHEEP_BABY_HORNS));
+        skipDrawForAllExcept(this.adultModel);
+        skipDrawForAllExcept(this.babyModel);
+    }
+
+    static void skipDrawForAllExcept(Model model) {
+        SheepOverlayLayer.skipDrawForAllExcept(model,
+                model.root().getChild("head").getChild("left_horn"),
+                model.root().getChild("head").getChild("right_horn"));
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -53,34 +61,22 @@ public class SheepHornsLayer extends RenderLayer<SheepRenderState, SheepModel> {
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, SheepRenderState renderState, float yRot, float xRot) {
-        SheepVariant sheepVariant = ((SheepVariantRenderState) renderState).variant;
-        if (sheepVariant.modelAndTexture().model() == SheepVariant.ModelType.WARM) {
-            EntityModel<SheepRenderState> entityModel = renderState.isBaby ? this.babyModel : this.adultModel;
-            ResourceLocation resourceLocation = sheepVariant.modelAndTexture()
-                    .asset()
-                    .id()
-                    .withPath((String s) -> "textures/" + s + "_horns.png");
-            coloredCutoutModelCopyLayerRender(entityModel,
-                    resourceLocation,
-                    poseStack,
-                    bufferSource,
-                    packedLight,
-                    renderState,
-                    -1);
-        }
-    }
-
-    private static class SheepHornsModel extends SheepModel {
-
-        public SheepHornsModel(ModelPart root) {
-            super(root);
-            ModelPart leftHorn = root.getChild("head").getChild("left_horn");
-            ModelPart rightHorn = root.getChild("head").getChild("right_horn");
-            root.getAllParts().forEach((ModelPart modelPart) -> {
-                if (modelPart != leftHorn && modelPart != rightHorn) {
-                    modelPart.skipDraw = true;
-                }
-            });
+        if (!renderState.isBaby) {
+            SheepVariant sheepVariant = ((SheepVariantRenderState) renderState).variant;
+            if (sheepVariant.modelAndTexture().model() == SheepVariant.ModelType.WARM) {
+                EntityModel<SheepRenderState> entityModel = renderState.isBaby ? this.babyModel : this.adultModel;
+                ResourceLocation resourceLocation = sheepVariant.modelAndTexture()
+                        .asset()
+                        .id()
+                        .withPath((String s) -> "textures/" + s + "_horns.png");
+                coloredCutoutModelCopyLayerRender(entityModel,
+                        resourceLocation,
+                        poseStack,
+                        bufferSource,
+                        packedLight,
+                        renderState,
+                        -1);
+            }
         }
     }
 }

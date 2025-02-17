@@ -1,6 +1,6 @@
 package fuzs.sheepvariety.client.renderer.entity.state;
 
-import fuzs.sheepvariety.world.entity.animal.SheepVariant;
+import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import net.minecraft.client.renderer.entity.state.SheepRenderState;
 import org.jetbrains.annotations.Nullable;
 

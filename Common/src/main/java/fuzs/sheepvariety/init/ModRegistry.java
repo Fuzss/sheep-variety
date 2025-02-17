@@ -5,8 +5,8 @@ import fuzs.puzzleslib.api.attachment.v4.DataAttachmentType;
 import fuzs.puzzleslib.api.init.v3.tags.TagFactory;
 import fuzs.puzzleslib.api.network.v3.PlayerSet;
 import fuzs.sheepvariety.SheepVariety;
-import fuzs.sheepvariety.world.entity.animal.SheepVariant;
-import fuzs.sheepvariety.world.entity.animal.SheepVariants;
+import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
+import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -21,9 +21,9 @@ public class ModRegistry {
             SheepVariety.id("sheep_variant"));
 
     static final TagFactory TAGS = TagFactory.make(SheepVariety.MOD_ID);
-    public static final TagKey<Biome> SPAWNS_COLD_VARIANT_FARM_ANIMALS = TAGS.registerBiomeTag(
+    public static final TagKey<Biome> SPAWNS_COLD_VARIANT_FARM_ANIMALS_BIOME_TAG = TAGS.registerBiomeTag(
             "spawns_cold_variant_farm_animals");
-    public static final TagKey<Biome> SPAWNS_WARM_VARIANT_FARM_ANIMALS = TAGS.registerBiomeTag(
+    public static final TagKey<Biome> SPAWNS_WARM_VARIANT_FARM_ANIMALS_BIOME_TAG = TAGS.registerBiomeTag(
             "spawns_warm_variant_farm_animals");
 
     public static final DataAttachmentType<Entity, Holder<SheepVariant>> SHEEP_VARIANT_ATTACHMENT_TYPE = DataAttachmentRegistry.<Holder<SheepVariant>>entityBuilder()

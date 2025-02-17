@@ -1,7 +1,8 @@
-package fuzs.sheepvariety.world.entity.animal;
+package fuzs.sheepvariety.world.entity.animal.sheep;
 
 import fuzs.sheepvariety.SheepVariety;
 import fuzs.sheepvariety.init.ModRegistry;
+import fuzs.sheepvariety.world.entity.animal.TemperatureVariants;
 import fuzs.sheepvariety.world.entity.variant.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
@@ -37,12 +38,12 @@ public class SheepVariants {
                 WARM,
                 SheepVariant.ModelType.WARM,
                 "warm_sheep",
-                ModRegistry.SPAWNS_WARM_VARIANT_FARM_ANIMALS);
+                ModRegistry.SPAWNS_WARM_VARIANT_FARM_ANIMALS_BIOME_TAG);
         register(bootstrapContext,
                 COLD,
                 SheepVariant.ModelType.COLD,
                 "cold_sheep",
-                ModRegistry.SPAWNS_COLD_VARIANT_FARM_ANIMALS);
+                ModRegistry.SPAWNS_COLD_VARIANT_FARM_ANIMALS_BIOME_TAG);
     }
 
     private static void register(BootstrapContext<SheepVariant> bootstrapContext, ResourceKey<SheepVariant> resourceKey, SheepVariant.ModelType modelType, String string, TagKey<Biome> tagKey) {

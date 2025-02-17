@@ -2,8 +2,10 @@ package fuzs.sheepvariety.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import fuzs.sheepvariety.client.renderer.entity.state.SheepVariantRenderState;
-import fuzs.sheepvariety.world.entity.animal.SheepVariant;
+import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.SheepModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -13,6 +15,10 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.function.Predicate;
 
 public class SheepOverlayLayer extends RenderLayer<SheepRenderState, SheepModel> {
 
@@ -28,14 +34,14 @@ public class SheepOverlayLayer extends RenderLayer<SheepRenderState, SheepModel>
                     .asset()
                     .id()
                     .withPath((String s) -> "textures/" + s + "_overlay.png");
-            int woolColor = getSheepWoolColor(renderState);
+            int color = getSheepWoolColor(renderState);
             coloredCutoutModelCopyLayerRender(this.getParentModel(),
                     resourceLocation,
                     poseStack,
                     bufferSource,
                     packedLight,
                     renderState,
-                    woolColor);
+                    color);
         }
     }
 
@@ -53,5 +59,13 @@ public class SheepOverlayLayer extends RenderLayer<SheepRenderState, SheepModel>
         } else {
             return Sheep.getColor(renderState.woolColor);
         }
+    }
+
+    static void skipDrawForAllExcept(Model model, ModelPart... modelParts) {
+        HashSet<ModelPart> set = new HashSet<>(Arrays.asList(modelParts));
+        model.root()
+                .getAllParts()
+                .filter(Predicate.not(set::contains))
+                .forEach((ModelPart modelPart) -> modelPart.skipDraw = true);
     }
 }
