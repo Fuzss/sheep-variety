@@ -31,7 +31,7 @@ public class SheepVariety implements ModConstructor {
     }
 
     @Override
-    public void onDataPackRegistriesContext(DataPackRegistriesContext context) {
+    public void onRegisterDataPackRegistriesContext(DataPackRegistriesContext context) {
         context.registerSyncedRegistry(ModRegistry.SHEEP_VARIANT_REGISTRY_KEY, SheepVariant.DIRECT_CODEC);
     }
 

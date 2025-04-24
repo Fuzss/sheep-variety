@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.entity.state.SheepRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.item.DyeColor;
 
 import java.util.Arrays;
@@ -33,7 +33,7 @@ public class SheepOverlayLayer extends RenderLayer<SheepRenderState, SheepModel>
             ResourceLocation resourceLocation = sheepVariant.modelAndTexture()
                     .asset()
                     .id()
-                    .withPath((String s) -> "textures/" + s + "_overlay.png");
+                    .withPath((String s) -> "textures/" + s + "_wool_undercoat.png");
             int color = getSheepWoolColor(renderState);
             coloredCutoutModelCopyLayerRender(this.getParentModel(),
                     resourceLocation,

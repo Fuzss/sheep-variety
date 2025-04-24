@@ -3,18 +3,18 @@ package fuzs.sheepvariety.world.entity.animal.sheep;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import fuzs.sheepvariety.init.ModRegistry;
-import fuzs.sheepvariety.world.entity.variant.*;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.entity.variant.*;
 
 import java.util.List;
 
 public record SheepVariant(ModelAndTexture<ModelType> modelAndTexture,
-                           SpawnPrioritySelectors spawnConditions) implements PriorityProvider<SpawnContext, BiomeCheck> {
+                           SpawnPrioritySelectors spawnConditions) implements PriorityProvider<SpawnContext, SpawnCondition> {
     public static final Codec<SheepVariant> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     ModelAndTexture.codec(SheepVariant.ModelType.CODEC, SheepVariant.ModelType.NORMAL)
                             .forGetter(SheepVariant::modelAndTexture),
@@ -32,7 +32,7 @@ public record SheepVariant(ModelAndTexture<ModelType> modelAndTexture,
     }
 
     @Override
-    public List<Selector<SpawnContext, BiomeCheck>> selectors() {
+    public List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> selectors() {
         return this.spawnConditions.selectors();
     }
 

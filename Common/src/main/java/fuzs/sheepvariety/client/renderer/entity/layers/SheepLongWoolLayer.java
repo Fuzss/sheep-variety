@@ -53,7 +53,7 @@ public class SheepLongWoolLayer extends SheepVariantWoolLayer {
             return sheepVariant.modelAndTexture()
                     .asset()
                     .id()
-                    .withPath((String s) -> "textures/" + s + "_long_fur.png");
+                    .withPath((String s) -> "textures/" + s + "_long_wool.png");
         } else {
             return null;
         }

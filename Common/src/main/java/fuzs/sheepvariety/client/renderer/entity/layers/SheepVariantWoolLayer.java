@@ -66,6 +66,6 @@ public class SheepVariantWoolLayer extends RenderLayer<SheepRenderState, SheepMo
     @Nullable
     protected ResourceLocation getTextureLocation(SheepRenderState renderState) {
         SheepVariant sheepVariant = ((SheepVariantRenderState) renderState).variant;
-        return sheepVariant.modelAndTexture().asset().id().withPath((String s) -> "textures/" + s + "_fur.png");
+        return sheepVariant.modelAndTexture().asset().id().withPath((String s) -> "textures/" + s + "_wool.png");
     }
 }

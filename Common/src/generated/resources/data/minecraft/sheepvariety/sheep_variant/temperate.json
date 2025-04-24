@@ -1,8 +1,0 @@
-{
-  "asset_id": "sheepvariety:entity/sheep/temperate_sheep",
-  "spawn_conditions": [
-    {
-      "priority": 0
-    }
-  ]
-}

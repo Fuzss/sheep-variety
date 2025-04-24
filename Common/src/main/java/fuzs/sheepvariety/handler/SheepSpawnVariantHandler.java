@@ -4,44 +4,33 @@ import fuzs.puzzleslib.api.event.v1.core.EventResult;
 import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
 import fuzs.puzzleslib.api.event.v1.data.MutableValue;
 import fuzs.sheepvariety.init.ModRegistry;
-import fuzs.sheepvariety.world.entity.animal.sheep.SheepColorSpawnRules;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariants;
-import fuzs.sheepvariety.world.entity.variant.SpawnContext;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class SheepSpawnVariantHandler {
 
-    public static DyeColor getRandomSheepColor(ServerLevelAccessor serverLevelAccessor, BlockPos blockPos) {
-        Holder<Biome> holder = serverLevelAccessor.getBiome(blockPos);
-        return SheepColorSpawnRules.getSheepColor(holder, serverLevelAccessor.getRandom());
-    }
-
     public static EventResult onEntitySpawn(Entity entity, ServerLevel serverLevel, @Nullable EntitySpawnReason entitySpawnReason) {
-        if (entitySpawnReason != null && entity instanceof Sheep sheep) {
+        if (entitySpawnReason != null && entity instanceof Sheep) {
             SheepVariants.selectVariantToSpawn(serverLevel.random,
                             serverLevel.registryAccess(),
                             SpawnContext.create(serverLevel, entity.blockPosition()))
                     .ifPresent((Holder.Reference<SheepVariant> holder) -> {
                         ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.set(entity, holder);
                     });
-            sheep.setColor(getRandomSheepColor(serverLevel, entity.blockPosition()));
         }
         return EventResult.PASS;
     }
