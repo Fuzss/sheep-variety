@@ -1,0 +1,12 @@
+{
+  "asset_id": "sheepvariety:entity/sheep/cold_sheep",
+  "model": "cold",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "biomes": "#sheepvariety:spawns_cold_variant_farm_animals"
+      },
+      "priority": 1
+    }
+  ]
+}
