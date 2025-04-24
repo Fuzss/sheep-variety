@@ -32,7 +32,9 @@ public class SheepVariety implements ModConstructor {
 
     @Override
     public void onRegisterDataPackRegistriesContext(DataPackRegistriesContext context) {
-        context.registerSyncedRegistry(ModRegistry.SHEEP_VARIANT_REGISTRY_KEY, SheepVariant.DIRECT_CODEC);
+        context.registerSyncedRegistry(ModRegistry.SHEEP_VARIANT_REGISTRY_KEY,
+                SheepVariant.DIRECT_CODEC,
+                SheepVariant.NETWORK_CODEC);
     }
 
     public static ResourceLocation id(String path) {

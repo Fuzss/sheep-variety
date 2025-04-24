@@ -1,0 +1,17 @@
+{
+  "assets": {
+    "asset_id": "sheepvariety:entity/sheep/warm_sheep",
+    "model": "warm",
+    "undercoat_id": "sheepvariety:entity/sheep/warm_sheep_wool_undercoat",
+    "wool_id": "sheepvariety:entity/sheep/warm_sheep_wool"
+  },
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#minecraft:spawns_warm_variant_farm_animals"
+      },
+      "priority": 1
+    }
+  ]
+}

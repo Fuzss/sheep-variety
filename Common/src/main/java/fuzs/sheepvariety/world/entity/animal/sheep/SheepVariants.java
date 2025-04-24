@@ -3,6 +3,7 @@ package fuzs.sheepvariety.world.entity.animal.sheep;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
 import fuzs.sheepvariety.SheepVariety;
 import fuzs.sheepvariety.init.ModRegistry;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.HolderSet;
@@ -15,7 +16,10 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.animal.TemperatureVariants;
-import net.minecraft.world.entity.variant.*;
+import net.minecraft.world.entity.variant.BiomeCheck;
+import net.minecraft.world.entity.variant.PriorityProvider;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
 
 import java.util.Optional;
@@ -58,8 +62,12 @@ public class SheepVariants {
     }
 
     private static void register(BootstrapContext<SheepVariant> bootstrapContext, ResourceKey<SheepVariant> resourceKey, SheepVariant.ModelType modelType, ResourceLocation resourceLocation, SpawnPrioritySelectors spawnPrioritySelectors) {
+        ClientAsset assetId = new ClientAsset(resourceLocation.withPath((String s) -> "entity/sheep/" + s));
+        ClientAsset woolId = new ClientAsset(resourceLocation.withPath((String s) -> "entity/sheep/" + s + "_wool"));
+        ClientAsset undercoatId = new ClientAsset(resourceLocation.withPath((String s) -> "entity/sheep/" + s +
+                "_wool_undercoat"));
         bootstrapContext.register(resourceKey,
-                new SheepVariant(new ModelAndTexture<>(modelType, resourceLocation.withPrefix("entity/sheep/")),
+                new SheepVariant(new SheepVariant.AssetInfo(modelType, assetId, woolId, undercoatId),
                         spawnPrioritySelectors));
     }
 
