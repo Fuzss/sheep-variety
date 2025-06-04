@@ -37,22 +37,21 @@ public class SheepSpawnVariantHandler {
 
     public static EventResult onBabyEntitySpawn(Mob partnerMob, Mob otherPartnerMob, MutableValue<AgeableMob> childMob) {
         if (childMob.get() instanceof Sheep sheep) {
-            Holder<SheepVariant> holder = getSheepVariant(
-                    sheep.getRandom().nextBoolean() ? partnerMob : otherPartnerMob);
+            Holder<SheepVariant> holder;
+            if (sheep.getRandom().nextBoolean()) {
+                holder = ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.get(partnerMob);
+            } else {
+                holder = ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.get(otherPartnerMob);
+            }
+            if (holder == null) {
+                holder = sheep.registryAccess()
+                        .lookupOrThrow(ModRegistry.SHEEP_VARIANT_REGISTRY_KEY)
+                        .getOrThrow(SheepVariants.DEFAULT);
+            }
             ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.set(sheep, holder);
         }
 
         return EventResult.PASS;
-    }
-
-    public static Holder<SheepVariant> getSheepVariant(Mob mob) {
-        if (ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.has(mob)) {
-            return ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.get(mob);
-        } else {
-            return mob.registryAccess()
-                    .lookupOrThrow(ModRegistry.SHEEP_VARIANT_REGISTRY_KEY)
-                    .getOrThrow(SheepVariants.DEFAULT);
-        }
     }
 
     public static EventResultHolder<InteractionResult> onUseEntity(Player player, Level level, InteractionHand interactionHand, Entity entity) {
@@ -66,7 +65,7 @@ public class SheepSpawnVariantHandler {
                         sheep.position(),
                         itemInHand);
                 if (optional.isPresent()) {
-                    Holder<SheepVariant> holder = getSheepVariant(sheep);
+                    Holder<SheepVariant> holder = ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.get(sheep);
                     if (holder != null) {
                         ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.set(optional.get(), holder);
                     }

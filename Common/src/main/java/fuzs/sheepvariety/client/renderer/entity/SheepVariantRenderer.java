@@ -6,7 +6,7 @@ import fuzs.sheepvariety.client.model.geom.ModModelLayers;
 import fuzs.sheepvariety.client.renderer.entity.layers.SheepVariantWoolLayer;
 import fuzs.sheepvariety.client.renderer.entity.layers.SheepVariantWoolUndercoatLayer;
 import fuzs.sheepvariety.client.renderer.entity.state.SheepVariantRenderState;
-import fuzs.sheepvariety.handler.SheepSpawnVariantHandler;
+import fuzs.sheepvariety.init.ModRegistry;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import net.minecraft.client.model.AdultAndBabyModelPair;
 import net.minecraft.client.model.SheepFurModel;
@@ -106,7 +106,8 @@ public class SheepVariantRenderer extends SheepRenderer {
     @Override
     public void extractRenderState(Sheep sheep, SheepRenderState sheepRenderState, float partialTick) {
         super.extractRenderState(sheep, sheepRenderState, partialTick);
-        ((SheepVariantRenderState) sheepRenderState).variant = SheepSpawnVariantHandler.getSheepVariant(sheep).value();
+        ((SheepVariantRenderState) sheepRenderState).variant = ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.get(sheep)
+                .value();
     }
 
     @Override
