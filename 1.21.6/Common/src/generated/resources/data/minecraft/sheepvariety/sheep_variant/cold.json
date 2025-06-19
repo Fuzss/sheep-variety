@@ -1,0 +1,17 @@
+{
+  "assets": {
+    "asset_id": "sheepvariety:entity/sheep/cold_sheep",
+    "model": "cold",
+    "undercoat_id": "sheepvariety:entity/sheep/cold_sheep_wool_undercoat",
+    "wool_id": "sheepvariety:entity/sheep/cold_sheep_wool"
+  },
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#minecraft:spawns_cold_variant_farm_animals"
+      },
+      "priority": 1
+    }
+  ]
+}
