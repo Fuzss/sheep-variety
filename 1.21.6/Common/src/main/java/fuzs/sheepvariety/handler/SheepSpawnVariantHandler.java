@@ -3,6 +3,7 @@ package fuzs.sheepvariety.handler;
 import fuzs.puzzleslib.api.event.v1.core.EventResult;
 import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
 import fuzs.puzzleslib.api.event.v1.data.MutableValue;
+import fuzs.puzzleslib.api.util.v1.EntityHelper;
 import fuzs.sheepvariety.init.ModRegistry;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariants;
@@ -10,21 +11,23 @@ import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class SheepSpawnVariantHandler {
 
-    public static EventResult onEntitySpawn(Entity entity, ServerLevel serverLevel, @Nullable EntitySpawnReason entitySpawnReason) {
-        if (entitySpawnReason != null && entity instanceof Sheep) {
+    public static EventResult onEntitySpawn(Entity entity, ServerLevel serverLevel, boolean isNewlySpawned) {
+        if (isNewlySpawned && entity instanceof Sheep sheep && EntityHelper.getMobSpawnReason(sheep) != null) {
             SheepVariants.selectVariantToSpawn(serverLevel.random,
                             serverLevel.registryAccess(),
                             SpawnContext.create(serverLevel, entity.blockPosition()))

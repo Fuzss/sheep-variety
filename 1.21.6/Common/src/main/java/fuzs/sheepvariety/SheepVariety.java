@@ -25,7 +25,7 @@ public class SheepVariety implements ModConstructor {
     }
 
     private static void registerEventHandlers() {
-        ServerEntityLevelEvents.SPAWN.register(SheepSpawnVariantHandler::onEntitySpawn);
+        ServerEntityLevelEvents.LOAD.register(SheepSpawnVariantHandler::onEntitySpawn);
         BabyEntitySpawnCallback.EVENT.register(SheepSpawnVariantHandler::onBabyEntitySpawn);
         PlayerInteractEvents.USE_ENTITY.register(SheepSpawnVariantHandler::onUseEntity);
     }
