@@ -2,7 +2,6 @@ package fuzs.sheepvariety.client.renderer.entity.layers;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import fuzs.sheepvariety.client.model.geom.ModModelLayers;
 import fuzs.sheepvariety.client.renderer.entity.state.SheepVariantRenderState;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
@@ -11,8 +10,8 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.SheepFurModel;
 import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -45,30 +44,35 @@ public class SheepVariantWoolLayer extends RenderLayer<SheepRenderState, SheepMo
     }
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, SheepRenderState sheepRenderState, float yRot, float xRot) {
+    public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, SheepRenderState sheepRenderState, float yRot, float xRot) {
         if (!sheepRenderState.isSheared) {
             EntityModel<SheepRenderState> entityModel = this.models.get(((SheepVariantRenderState) sheepRenderState).variant.assetInfo()
                     .model()).getModel(sheepRenderState.isBaby);
             if (sheepRenderState.isInvisible) {
-                if (sheepRenderState.appearsGlowing) {
-                    entityModel.setupAnim(sheepRenderState);
-                    VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.outline(((SheepVariantRenderState) sheepRenderState).variant.assetInfo()
+                if (sheepRenderState.appearsGlowing()) {
+                    RenderType renderType = RenderType.outline(((SheepVariantRenderState) sheepRenderState).variant.assetInfo()
                             .wool()
-                            .texturePath()));
-                    entityModel.renderToBuffer(poseStack,
-                            vertexConsumer,
+                            .texturePath());
+                    submitNodeCollector.submitModel(entityModel,
+                            sheepRenderState,
+                            poseStack,
+                            renderType,
                             packedLight,
                             LivingEntityRenderer.getOverlayCoords(sheepRenderState, 0.0F),
-                            -16777216);
+                            -16777216,
+                            null,
+                            sheepRenderState.outlineColor,
+                            null);
                 }
             } else {
                 coloredCutoutModelCopyLayerRender(entityModel,
                         ((SheepVariantRenderState) sheepRenderState).variant.assetInfo().wool().texturePath(),
                         poseStack,
-                        multiBufferSource,
+                        submitNodeCollector,
                         packedLight,
                         sheepRenderState,
-                        sheepRenderState.getWoolColor());
+                        sheepRenderState.getWoolColor(),
+                        1);
             }
         }
     }

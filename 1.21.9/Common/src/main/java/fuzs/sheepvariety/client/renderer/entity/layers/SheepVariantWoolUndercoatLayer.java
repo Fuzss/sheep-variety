@@ -9,7 +9,7 @@ import net.minecraft.client.model.AdultAndBabyModelPair;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -42,18 +42,19 @@ public class SheepVariantWoolUndercoatLayer extends RenderLayer<SheepRenderState
     }
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, SheepRenderState sheepRenderState, float yRot, float xRot) {
-        if (!sheepRenderState.isInvisible &&
-                (sheepRenderState.isJebSheep() || sheepRenderState.woolColor != DyeColor.WHITE)) {
+    public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, SheepRenderState sheepRenderState, float yRot, float xRot) {
+        if (!sheepRenderState.isInvisible && (sheepRenderState.isJebSheep
+                || sheepRenderState.woolColor != DyeColor.WHITE)) {
             EntityModel<SheepRenderState> entityModel = this.models.get(((SheepVariantRenderState) sheepRenderState).variant.assetInfo()
                     .model()).getModel(sheepRenderState.isBaby);
             coloredCutoutModelCopyLayerRender(entityModel,
                     ((SheepVariantRenderState) sheepRenderState).variant.assetInfo().undercoat().texturePath(),
                     poseStack,
-                    multiBufferSource,
+                    submitNodeCollector,
                     packedLight,
                     sheepRenderState,
-                    sheepRenderState.getWoolColor());
+                    sheepRenderState.getWoolColor(),
+                    1);
         }
     }
 }

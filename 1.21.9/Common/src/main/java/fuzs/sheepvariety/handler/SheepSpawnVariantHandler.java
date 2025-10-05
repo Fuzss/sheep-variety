@@ -35,6 +35,7 @@ public class SheepSpawnVariantHandler {
                         ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.set(entity, holder);
                     });
         }
+        
         return EventResult.PASS;
     }
 
@@ -46,6 +47,7 @@ public class SheepSpawnVariantHandler {
             } else {
                 holder = ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.get(otherPartnerMob);
             }
+
             if (holder == null) {
                 holder = sheep.registryAccess()
                         .lookupOrThrow(ModRegistry.SHEEP_VARIANT_REGISTRY_KEY)
@@ -63,7 +65,7 @@ public class SheepSpawnVariantHandler {
             if (itemInHand.getItem() instanceof SpawnEggItem item) {
                 Optional<Mob> optional = item.spawnOffspringFromSpawnEgg(player,
                         sheep,
-                        (EntityType<? extends Mob>) item.getType(serverLevel.registryAccess(), itemInHand),
+                        (EntityType<? extends Mob>) item.getType(itemInHand),
                         serverLevel,
                         sheep.position(),
                         itemInHand);
@@ -72,6 +74,7 @@ public class SheepSpawnVariantHandler {
                     if (holder != null) {
                         ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.set(optional.get(), holder);
                     }
+
                     return EventResultHolder.interrupt(InteractionResult.SUCCESS_SERVER);
                 }
             }

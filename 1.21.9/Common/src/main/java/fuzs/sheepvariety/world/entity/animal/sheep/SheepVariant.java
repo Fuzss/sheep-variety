@@ -16,6 +16,7 @@ import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 
 import java.util.List;
+import java.util.Locale;
 
 public record SheepVariant(AssetInfo assetInfo,
                            SpawnPrioritySelectors spawnConditions) implements PriorityProvider<SpawnContext, SpawnCondition> {
@@ -38,32 +39,29 @@ public record SheepVariant(AssetInfo assetInfo,
         return this.spawnConditions.selectors();
     }
 
-    public record AssetInfo(ModelType model, ClientAsset asset, ClientAsset wool, ClientAsset undercoat) {
+    public record AssetInfo(ModelType model,
+                            ClientAsset.ResourceTexture asset,
+                            ClientAsset.ResourceTexture wool,
+                            ClientAsset.ResourceTexture undercoat) {
         public static final Codec<SheepVariant.AssetInfo> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                         SheepVariant.ModelType.CODEC.optionalFieldOf("model", SheepVariant.ModelType.NORMAL)
                                 .forGetter(AssetInfo::model),
-                        ClientAsset.DEFAULT_FIELD_CODEC.forGetter(SheepVariant.AssetInfo::asset),
-                        ClientAsset.CODEC.fieldOf("wool_id").forGetter(SheepVariant.AssetInfo::wool),
-                        ClientAsset.CODEC.fieldOf("undercoat_id").forGetter(SheepVariant.AssetInfo::undercoat))
+                        ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(SheepVariant.AssetInfo::asset),
+                        ClientAsset.ResourceTexture.CODEC.fieldOf("wool_id").forGetter(SheepVariant.AssetInfo::wool),
+                        ClientAsset.ResourceTexture.CODEC.fieldOf("undercoat_id").forGetter(SheepVariant.AssetInfo::undercoat))
                 .apply(instance, SheepVariant.AssetInfo::new));
     }
 
     public enum ModelType implements StringRepresentable {
-        NORMAL("normal"),
-        COLD("cold"),
-        WARM("warm");
+        NORMAL,
+        COLD,
+        WARM;
 
         public static final Codec<SheepVariant.ModelType> CODEC = StringRepresentable.fromEnum(SheepVariant.ModelType::values);
 
-        private final String name;
-
-        ModelType(String name) {
-            this.name = name;
-        }
-
         @Override
         public String getSerializedName() {
-            return this.name;
+            return this.name().toLowerCase(Locale.ROOT);
         }
     }
 }

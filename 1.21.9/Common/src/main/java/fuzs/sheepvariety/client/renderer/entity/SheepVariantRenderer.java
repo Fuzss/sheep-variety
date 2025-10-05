@@ -14,13 +14,14 @@ import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SheepRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.layers.SheepWoolLayer;
 import net.minecraft.client.renderer.entity.layers.SheepWoolUndercoatLayer;
 import net.minecraft.client.renderer.entity.state.SheepRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.sheep.Sheep;
@@ -111,13 +112,13 @@ public class SheepVariantRenderer extends SheepRenderer {
     }
 
     @Override
-    public void render(SheepRenderState sheepRenderState, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight) {
+    public void submit(SheepRenderState sheepRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
         if (((SheepVariantRenderState) sheepRenderState).variant != null) {
             AdultAndBabyModelPair<SheepModel> adultAndBabyModelPair = this.models.get(((SheepVariantRenderState) sheepRenderState).variant.assetInfo()
                     .model());
             this.adultModel = adultAndBabyModelPair.getModel(false);
             this.babyModel = adultAndBabyModelPair.getModel(true);
-            super.render(sheepRenderState, poseStack, multiBufferSource, packedLight);
+            super.submit(sheepRenderState, poseStack, submitNodeCollector, cameraRenderState);
         }
     }
 }

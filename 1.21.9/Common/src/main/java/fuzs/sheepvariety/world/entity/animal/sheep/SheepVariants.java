@@ -62,10 +62,12 @@ public class SheepVariants {
     }
 
     private static void register(BootstrapContext<SheepVariant> bootstrapContext, ResourceKey<SheepVariant> resourceKey, SheepVariant.ModelType modelType, ResourceLocation resourceLocation, SpawnPrioritySelectors spawnPrioritySelectors) {
-        ClientAsset assetId = new ClientAsset(resourceLocation.withPath((String s) -> "entity/sheep/" + s));
-        ClientAsset woolId = new ClientAsset(resourceLocation.withPath((String s) -> "entity/sheep/" + s + "_wool"));
-        ClientAsset undercoatId = new ClientAsset(resourceLocation.withPath((String s) -> "entity/sheep/" + s +
-                "_wool_undercoat"));
+        ClientAsset.ResourceTexture assetId = new ClientAsset.ResourceTexture(resourceLocation.withPath((String s) ->
+                "entity/sheep/" + s));
+        ClientAsset.ResourceTexture woolId = new ClientAsset.ResourceTexture(resourceLocation.withPath((String s) ->
+                "entity/sheep/" + s + "_wool"));
+        ClientAsset.ResourceTexture undercoatId = new ClientAsset.ResourceTexture(resourceLocation.withPath((String s) ->
+                "entity/sheep/" + s + "_wool_undercoat"));
         bootstrapContext.register(resourceKey,
                 new SheepVariant(new SheepVariant.AssetInfo(modelType, assetId, woolId, undercoatId),
                         spawnPrioritySelectors));
