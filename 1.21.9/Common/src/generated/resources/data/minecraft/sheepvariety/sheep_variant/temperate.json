@@ -1,0 +1,12 @@
+{
+  "assets": {
+    "asset_id": "minecraft:entity/sheep/sheep",
+    "undercoat_id": "minecraft:entity/sheep/sheep_wool_undercoat",
+    "wool_id": "minecraft:entity/sheep/sheep_wool"
+  },
+  "spawn_conditions": [
+    {
+      "priority": 0
+    }
+  ]
+}
