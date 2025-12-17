@@ -5,8 +5,8 @@ import fuzs.puzzleslib.api.client.core.v1.context.EntityRenderersContext;
 import fuzs.puzzleslib.api.client.core.v1.context.LayerDefinitionsContext;
 import fuzs.sheepvariety.client.model.geom.ModModelLayers;
 import fuzs.sheepvariety.client.renderer.entity.SheepVariantRenderer;
-import net.minecraft.client.model.SheepFurModel;
-import net.minecraft.client.model.SheepModel;
+import net.minecraft.client.model.animal.sheep.SheepFurModel;
+import net.minecraft.client.model.animal.sheep.SheepModel;
 import net.minecraft.world.entity.EntityType;
 
 public class SheepVarietyClient implements ClientModConstructor {

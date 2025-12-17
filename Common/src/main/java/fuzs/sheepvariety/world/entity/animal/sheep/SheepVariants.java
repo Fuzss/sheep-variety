@@ -1,6 +1,6 @@
 package fuzs.sheepvariety.world.entity.animal.sheep;
 
-import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
+import net.minecraft.resources.Identifier;
 import fuzs.sheepvariety.SheepVariety;
 import fuzs.sheepvariety.init.ModRegistry;
 import net.minecraft.core.ClientAsset;
@@ -11,7 +11,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -30,15 +30,15 @@ public class SheepVariants {
     public static final ResourceKey<SheepVariant> COLD = createKey(TemperatureVariants.COLD);
     public static final ResourceKey<SheepVariant> DEFAULT = TEMPERATE;
 
-    private static ResourceKey<SheepVariant> createKey(ResourceLocation resourceLocation) {
-        return ResourceKey.create(ModRegistry.SHEEP_VARIANT_REGISTRY_KEY, resourceLocation);
+    private static ResourceKey<SheepVariant> createKey(Identifier identifier) {
+        return ResourceKey.create(ModRegistry.SHEEP_VARIANT_REGISTRY_KEY, identifier);
     }
 
     public static void bootstrap(BootstrapContext<SheepVariant> bootstrapContext) {
         register(bootstrapContext,
                 TEMPERATE,
                 SheepVariant.ModelType.NORMAL,
-                ResourceLocationHelper.withDefaultNamespace("sheep"),
+                Identifier.withDefaultNamespace("sheep"),
                 SpawnPrioritySelectors.fallback(0));
         register(bootstrapContext,
                 WARM,
@@ -52,21 +52,21 @@ public class SheepVariants {
                 BiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS);
     }
 
-    private static void register(BootstrapContext<SheepVariant> bootstrapContext, ResourceKey<SheepVariant> resourceKey, SheepVariant.ModelType modelType, ResourceLocation resourceLocation, TagKey<Biome> tagKey) {
+    private static void register(BootstrapContext<SheepVariant> bootstrapContext, ResourceKey<SheepVariant> resourceKey, SheepVariant.ModelType modelType, Identifier identifier, TagKey<Biome> tagKey) {
         HolderSet<Biome> holderSet = bootstrapContext.lookup(Registries.BIOME).getOrThrow(tagKey);
         register(bootstrapContext,
                 resourceKey,
                 modelType,
-                resourceLocation,
+                identifier,
                 SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1));
     }
 
-    private static void register(BootstrapContext<SheepVariant> bootstrapContext, ResourceKey<SheepVariant> resourceKey, SheepVariant.ModelType modelType, ResourceLocation resourceLocation, SpawnPrioritySelectors spawnPrioritySelectors) {
-        ClientAsset.ResourceTexture assetId = new ClientAsset.ResourceTexture(resourceLocation.withPath((String s) ->
+    private static void register(BootstrapContext<SheepVariant> bootstrapContext, ResourceKey<SheepVariant> resourceKey, SheepVariant.ModelType modelType, Identifier identifier, SpawnPrioritySelectors spawnPrioritySelectors) {
+        ClientAsset.ResourceTexture assetId = new ClientAsset.ResourceTexture(identifier.withPath((String s) ->
                 "entity/sheep/" + s));
-        ClientAsset.ResourceTexture woolId = new ClientAsset.ResourceTexture(resourceLocation.withPath((String s) ->
+        ClientAsset.ResourceTexture woolId = new ClientAsset.ResourceTexture(identifier.withPath((String s) ->
                 "entity/sheep/" + s + "_wool"));
-        ClientAsset.ResourceTexture undercoatId = new ClientAsset.ResourceTexture(resourceLocation.withPath((String s) ->
+        ClientAsset.ResourceTexture undercoatId = new ClientAsset.ResourceTexture(identifier.withPath((String s) ->
                 "entity/sheep/" + s + "_wool_undercoat"));
         bootstrapContext.register(resourceKey,
                 new SheepVariant(new SheepVariant.AssetInfo(modelType, assetId, woolId, undercoatId),

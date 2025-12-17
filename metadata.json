@@ -1,0 +1,62 @@
+{
+    "mod": {
+        "id": "sheepvariety",
+        "group": "fuzs.sheepvariety",
+        "name": "Sheep Variety",
+        "version": "21.11.0",
+        "authors": [
+            "Fuzs",
+            "JOHNM"
+        ],
+        "description": "New sheep models and textures for every climate ? a biome-based glow-up awaits!",
+        "license": "MPL-2.0"
+    },
+    "dependencies": [
+        {
+            "name": "fabricapi",
+            "type": "required",
+            "platforms": [
+                "fabric"
+            ]
+        },
+        {
+            "name": "forgeconfigapiport",
+            "type": "required",
+            "platforms": [
+                "fabric"
+            ]
+        },
+        {
+            "name": "puzzleslib",
+            "type": "required",
+            "platforms": [
+                "fabric",
+                "neoforge"
+            ]
+        }
+    ],
+    "links": [
+        {
+            "name": "github",
+            "slug": "sheepvariety"
+        },
+        {
+            "name": "curseforge",
+            "slug": "sheep-variety",
+            "id": "1254173"
+        },
+        {
+            "name": "modrinth",
+            "slug": "sheep-variety",
+            "id": "D3buchWZ"
+        }
+    ],
+    "environments": {
+        "client": "required",
+        "server": "required"
+    },
+    "platforms": [
+        "fabric",
+        "neoforge"
+    ]
+}

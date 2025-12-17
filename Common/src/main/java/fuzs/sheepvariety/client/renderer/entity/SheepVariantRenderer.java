@@ -9,8 +9,8 @@ import fuzs.sheepvariety.client.renderer.entity.state.SheepVariantRenderState;
 import fuzs.sheepvariety.init.ModRegistry;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import net.minecraft.client.model.AdultAndBabyModelPair;
-import net.minecraft.client.model.SheepFurModel;
-import net.minecraft.client.model.SheepModel;
+import net.minecraft.client.model.animal.sheep.SheepFurModel;
+import net.minecraft.client.model.animal.sheep.SheepModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -23,7 +23,7 @@ import net.minecraft.client.renderer.entity.layers.SheepWoolUndercoatLayer;
 import net.minecraft.client.renderer.entity.state.SheepRenderState;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 
 import java.util.Map;
@@ -94,7 +94,7 @@ public class SheepVariantRenderer extends SheepRenderer {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SheepRenderState sheepRenderState) {
+    public Identifier getTextureLocation(SheepRenderState sheepRenderState) {
         return ((SheepVariantRenderState) sheepRenderState).variant == null ? MissingTextureAtlasSprite.getLocation() :
                 ((SheepVariantRenderState) sheepRenderState).variant.assetInfo().asset().texturePath();
     }

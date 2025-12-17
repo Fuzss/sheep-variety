@@ -7,7 +7,7 @@ import fuzs.sheepvariety.client.renderer.entity.state.SheepVariantRenderState;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import net.minecraft.client.model.AdultAndBabyModelPair;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.SheepModel;
+import net.minecraft.client.model.animal.sheep.SheepModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

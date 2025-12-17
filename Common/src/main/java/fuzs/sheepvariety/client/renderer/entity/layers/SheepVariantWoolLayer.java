@@ -7,16 +7,17 @@ import fuzs.sheepvariety.client.renderer.entity.state.SheepVariantRenderState;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import net.minecraft.client.model.AdultAndBabyModelPair;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.SheepFurModel;
-import net.minecraft.client.model.SheepModel;
+import net.minecraft.client.model.animal.sheep.SheepFurModel;
+import net.minecraft.client.model.animal.sheep.SheepModel;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.SheepRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import java.util.Map;
 
@@ -50,7 +51,7 @@ public class SheepVariantWoolLayer extends RenderLayer<SheepRenderState, SheepMo
                     .model()).getModel(sheepRenderState.isBaby);
             if (sheepRenderState.isInvisible) {
                 if (sheepRenderState.appearsGlowing()) {
-                    RenderType renderType = RenderType.outline(((SheepVariantRenderState) sheepRenderState).variant.assetInfo()
+                    RenderType renderType = RenderTypes.outline(((SheepVariantRenderState) sheepRenderState).variant.assetInfo()
                             .wool()
                             .texturePath());
                     submitNodeCollector.submitModel(entityModel,
