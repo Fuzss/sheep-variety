@@ -1,10 +1,10 @@
 package fuzs.sheepvariety;
 
-import fuzs.puzzleslib.api.core.v1.ModConstructor;
-import fuzs.puzzleslib.api.core.v1.context.DataPackRegistriesContext;
-import fuzs.puzzleslib.api.event.v1.entity.ServerEntityLevelEvents;
-import fuzs.puzzleslib.api.event.v1.entity.living.BabyEntitySpawnCallback;
-import fuzs.puzzleslib.api.event.v1.entity.player.PlayerInteractEvents;
+import fuzs.puzzleslib.common.api.core.v1.ModConstructor;
+import fuzs.puzzleslib.common.api.core.v1.context.DataPackRegistriesContext;
+import fuzs.puzzleslib.common.api.event.v1.entity.ServerEntityEvents;
+import fuzs.puzzleslib.common.api.event.v1.entity.living.BabyEntitySpawnCallback;
+import fuzs.puzzleslib.common.api.event.v1.entity.player.PlayerInteractEvents;
 import fuzs.sheepvariety.handler.SheepSpawnVariantHandler;
 import fuzs.sheepvariety.init.ModRegistry;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
@@ -24,7 +24,7 @@ public class SheepVariety implements ModConstructor {
     }
 
     private static void registerEventHandlers() {
-        ServerEntityLevelEvents.LOAD.register(SheepSpawnVariantHandler::onEntitySpawn);
+        ServerEntityEvents.LOAD.register(SheepSpawnVariantHandler::onEntityLoad);
         BabyEntitySpawnCallback.EVENT.register(SheepSpawnVariantHandler::onBabyEntitySpawn);
         PlayerInteractEvents.USE_ENTITY.register(SheepSpawnVariantHandler::onUseEntity);
     }

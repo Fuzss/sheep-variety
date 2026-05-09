@@ -1,9 +1,8 @@
 package fuzs.sheepvariety.handler;
 
-import fuzs.puzzleslib.api.event.v1.core.EventResult;
-import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
-import fuzs.puzzleslib.api.event.v1.data.MutableValue;
-import fuzs.puzzleslib.api.util.v1.EntityHelper;
+import fuzs.puzzleslib.common.api.event.v1.core.EventResult;
+import fuzs.puzzleslib.common.api.event.v1.core.EventResultHolder;
+import fuzs.puzzleslib.common.api.event.v1.data.MutableValue;
 import fuzs.sheepvariety.init.ModRegistry;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariants;
@@ -11,32 +10,29 @@ import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;
 
 public class SheepSpawnVariantHandler {
 
-    public static EventResult onEntitySpawn(Entity entity, ServerLevel serverLevel, boolean isNewlySpawned) {
-        if (isNewlySpawned && entity instanceof Sheep sheep && EntityHelper.getMobSpawnReason(sheep) != null) {
-            SheepVariants.selectVariantToSpawn(serverLevel.random,
+    public static void onEntityLoad(Entity entity, ServerLevel serverLevel, boolean isLoadedFromDisk, @Nullable EntitySpawnReason entitySpawnReason) {
+        if (!isLoadedFromDisk && entity instanceof Sheep sheep && entitySpawnReason != null) {
+            SheepVariants.selectVariantToSpawn(serverLevel.getRandom(),
                             serverLevel.registryAccess(),
                             SpawnContext.create(serverLevel, entity.blockPosition()))
                     .ifPresent((Holder.Reference<SheepVariant> holder) -> {
                         ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.set(entity, holder);
                     });
         }
-        
-        return EventResult.PASS;
     }
 
     public static EventResult onBabyEntitySpawn(Mob partnerMob, Mob otherPartnerMob, MutableValue<AgeableMob> childMob) {
@@ -53,17 +49,18 @@ public class SheepSpawnVariantHandler {
                         .lookupOrThrow(ModRegistry.SHEEP_VARIANT_REGISTRY_KEY)
                         .getOrThrow(SheepVariants.DEFAULT);
             }
+
             ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.set(sheep, holder);
         }
 
         return EventResult.PASS;
     }
 
-    public static EventResultHolder<InteractionResult> onUseEntity(Player player, Level level, InteractionHand interactionHand, Entity entity) {
+    public static EventResultHolder<InteractionResult> onUseEntity(Player player, Level level, InteractionHand interactionHand, Entity entity, Vec3 hitVector) {
         if (level instanceof ServerLevel serverLevel && entity instanceof Sheep sheep) {
             ItemStack itemInHand = player.getItemInHand(interactionHand);
             if (itemInHand.getItem() instanceof SpawnEggItem item) {
-                Optional<Mob> optional = item.spawnOffspringFromSpawnEgg(player,
+                Optional<Mob> optional = SpawnEggItem.spawnOffspringFromSpawnEgg(player,
                         sheep,
                         (EntityType<? extends Mob>) item.getType(itemInHand),
                         serverLevel,

@@ -1,8 +1,8 @@
 package fuzs.sheepvariety.init;
 
-import fuzs.puzzleslib.api.attachment.v4.DataAttachmentRegistry;
-import fuzs.puzzleslib.api.attachment.v4.DataAttachmentType;
-import fuzs.puzzleslib.api.network.v4.PlayerSet;
+import fuzs.puzzleslib.common.api.attachment.v4.DataAttachmentRegistry;
+import fuzs.puzzleslib.common.api.attachment.v4.DataAttachmentType;
+import fuzs.puzzleslib.common.api.network.v4.PlayerSet;
 import fuzs.sheepvariety.SheepVariety;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariants;

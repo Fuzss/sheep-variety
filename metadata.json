@@ -1,9 +1,10 @@
 {
+    "minecraft": "26.1.2",
     "mod": {
         "id": "sheepvariety",
         "group": "fuzs.sheepvariety",
         "name": "Sheep Variety",
-        "version": "21.11.0",
+        "version": "26.1.0",
         "authors": [
             "Fuzs",
             "JOHNM"
@@ -37,13 +38,13 @@
     ],
     "links": [
         {
-            "name": "github",
-            "slug": "sheepvariety"
-        },
-        {
             "name": "curseforge",
             "slug": "sheep-variety",
             "id": "1254173"
+        },
+        {
+            "name": "github",
+            "slug": "sheep-variety"
         },
         {
             "name": "modrinth",

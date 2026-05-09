@@ -9,6 +9,7 @@ import fuzs.sheepvariety.client.renderer.entity.state.SheepVariantRenderState;
 import fuzs.sheepvariety.init.ModRegistry;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
 import net.minecraft.client.model.AdultAndBabyModelPair;
+import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.animal.sheep.SheepFurModel;
 import net.minecraft.client.model.animal.sheep.SheepModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -21,14 +22,26 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.layers.SheepWoolLayer;
 import net.minecraft.client.renderer.entity.layers.SheepWoolUndercoatLayer;
 import net.minecraft.client.renderer.entity.state.SheepRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 
 import java.util.Map;
+import java.util.Set;
 
 public class SheepVariantRenderer extends SheepRenderer {
+    /**
+     * Copied from {@code SheepModel#BABY_TRANSFORMER} from Minecraft 1.21.11.
+     */
+    public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(false,
+            8.0F,
+            4.0F,
+            2.0F,
+            2.0F,
+            24.0F,
+            Set.of("head"));
+
     private final Map<SheepVariant.ModelType, AdultAndBabyModelPair<SheepModel>> models;
 
     public SheepVariantRenderer(EntityRendererProvider.Context context) {
@@ -117,7 +130,7 @@ public class SheepVariantRenderer extends SheepRenderer {
             AdultAndBabyModelPair<SheepModel> adultAndBabyModelPair = this.models.get(((SheepVariantRenderState) sheepRenderState).variant.assetInfo()
                     .model());
             this.adultModel = adultAndBabyModelPair.getModel(false);
-            this.babyModel = adultAndBabyModelPair.getModel(true);
+//            this.babyModel = adultAndBabyModelPair.getModel(true);
             super.submit(sheepRenderState, poseStack, submitNodeCollector, cameraRenderState);
         }
     }

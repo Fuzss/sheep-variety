@@ -1,7 +1,7 @@
 package fuzs.sheepvariety.data;
 
-import fuzs.puzzleslib.api.data.v2.AbstractDatapackRegistriesProvider;
-import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
+import fuzs.puzzleslib.common.api.data.v2.AbstractDatapackRegistriesProvider;
+import fuzs.puzzleslib.common.api.data.v2.core.DataProviderContext;
 import fuzs.sheepvariety.init.ModRegistry;
 import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariants;
 
