@@ -1,10 +1,10 @@
-package fuzs.sheepvariety.client;
+package fuzs.sheepvariety.common.client;
 
 import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.common.api.client.core.v1.context.EntityRenderersContext;
 import fuzs.puzzleslib.common.api.client.core.v1.context.LayerDefinitionsContext;
-import fuzs.sheepvariety.client.model.geom.ModModelLayers;
-import fuzs.sheepvariety.client.renderer.entity.SheepVariantRenderer;
+import fuzs.sheepvariety.common.client.model.geom.ModModelLayers;
+import fuzs.sheepvariety.common.client.renderer.entity.SheepVariantRenderer;
 import net.minecraft.client.model.animal.sheep.SheepFurModel;
 import net.minecraft.client.model.animal.sheep.SheepModel;
 import net.minecraft.world.entity.EntityType;

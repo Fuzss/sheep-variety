@@ -1,8 +1,8 @@
-package fuzs.sheepvariety.world.entity.animal.sheep;
+package fuzs.sheepvariety.common.world.entity.animal.sheep;
 
 import net.minecraft.resources.Identifier;
-import fuzs.sheepvariety.SheepVariety;
-import fuzs.sheepvariety.init.ModRegistry;
+import fuzs.sheepvariety.common.SheepVariety;
+import fuzs.sheepvariety.common.init.ModRegistry;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
@@ -11,7 +11,6 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;

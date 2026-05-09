@@ -1,11 +1,11 @@
-package fuzs.sheepvariety.handler;
+package fuzs.sheepvariety.common.handler;
 
 import fuzs.puzzleslib.common.api.event.v1.core.EventResult;
 import fuzs.puzzleslib.common.api.event.v1.core.EventResultHolder;
 import fuzs.puzzleslib.common.api.event.v1.data.MutableValue;
-import fuzs.sheepvariety.init.ModRegistry;
-import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
-import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariants;
+import fuzs.sheepvariety.common.init.ModRegistry;
+import fuzs.sheepvariety.common.world.entity.animal.sheep.SheepVariant;
+import fuzs.sheepvariety.common.world.entity.animal.sheep.SheepVariants;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -59,10 +59,10 @@ public class SheepSpawnVariantHandler {
     public static EventResultHolder<InteractionResult> onUseEntity(Player player, Level level, InteractionHand interactionHand, Entity entity, Vec3 hitVector) {
         if (level instanceof ServerLevel serverLevel && entity instanceof Sheep sheep) {
             ItemStack itemInHand = player.getItemInHand(interactionHand);
-            if (itemInHand.getItem() instanceof SpawnEggItem item) {
+            if (itemInHand.getItem() instanceof SpawnEggItem) {
                 Optional<Mob> optional = SpawnEggItem.spawnOffspringFromSpawnEgg(player,
                         sheep,
-                        (EntityType<? extends Mob>) item.getType(itemInHand),
+                        (EntityType<? extends Mob>) SpawnEggItem.getType(itemInHand),
                         serverLevel,
                         sheep.position(),
                         itemInHand);

@@ -1,6 +1,6 @@
 package fuzs.sheepvariety.fabric;
 
-import fuzs.sheepvariety.SheepVariety;
+import fuzs.sheepvariety.common.SheepVariety;
 import fuzs.puzzleslib.common.api.core.v1.ModConstructor;
 import net.fabricmc.api.ModInitializer;
 

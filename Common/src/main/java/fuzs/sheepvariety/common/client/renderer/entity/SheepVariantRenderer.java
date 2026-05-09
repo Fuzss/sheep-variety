@@ -1,13 +1,13 @@
-package fuzs.sheepvariety.client.renderer.entity;
+package fuzs.sheepvariety.common.client.renderer.entity;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
-import fuzs.sheepvariety.client.model.geom.ModModelLayers;
-import fuzs.sheepvariety.client.renderer.entity.layers.SheepVariantWoolLayer;
-import fuzs.sheepvariety.client.renderer.entity.layers.SheepVariantWoolUndercoatLayer;
-import fuzs.sheepvariety.client.renderer.entity.state.SheepVariantRenderState;
-import fuzs.sheepvariety.init.ModRegistry;
-import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
+import fuzs.sheepvariety.common.client.model.geom.ModModelLayers;
+import fuzs.sheepvariety.common.client.renderer.entity.layers.SheepVariantWoolLayer;
+import fuzs.sheepvariety.common.client.renderer.entity.layers.SheepVariantWoolUndercoatLayer;
+import fuzs.sheepvariety.common.client.renderer.entity.state.SheepVariantRenderState;
+import fuzs.sheepvariety.common.init.ModRegistry;
+import fuzs.sheepvariety.common.world.entity.animal.sheep.SheepVariant;
 import net.minecraft.client.model.AdultAndBabyModelPair;
 import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.animal.sheep.SheepFurModel;
@@ -107,9 +107,14 @@ public class SheepVariantRenderer extends SheepRenderer {
     }
 
     @Override
-    public Identifier getTextureLocation(SheepRenderState sheepRenderState) {
-        return ((SheepVariantRenderState) sheepRenderState).variant == null ? MissingTextureAtlasSprite.getLocation() :
-                ((SheepVariantRenderState) sheepRenderState).variant.assetInfo().asset().texturePath();
+    public Identifier getTextureLocation(SheepRenderState state) {
+        if (((SheepVariantRenderState) state).variant == null) {
+            return MissingTextureAtlasSprite.getLocation();
+        } else if (state.isBaby) {
+            return super.getTextureLocation(state);
+        } else {
+            return ((SheepVariantRenderState) state).variant.assetInfo().asset().texturePath();
+        }
     }
 
     @Override
@@ -118,20 +123,19 @@ public class SheepVariantRenderer extends SheepRenderer {
     }
 
     @Override
-    public void extractRenderState(Sheep sheep, SheepRenderState sheepRenderState, float partialTick) {
-        super.extractRenderState(sheep, sheepRenderState, partialTick);
-        ((SheepVariantRenderState) sheepRenderState).variant = ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.get(sheep)
-                .value();
+    public void extractRenderState(Sheep sheep, SheepRenderState state, float partialTick) {
+        super.extractRenderState(sheep, state, partialTick);
+        ((SheepVariantRenderState) state).variant = ModRegistry.SHEEP_VARIANT_ATTACHMENT_TYPE.get(sheep).value();
     }
 
     @Override
-    public void submit(SheepRenderState sheepRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
-        if (((SheepVariantRenderState) sheepRenderState).variant != null) {
-            AdultAndBabyModelPair<SheepModel> adultAndBabyModelPair = this.models.get(((SheepVariantRenderState) sheepRenderState).variant.assetInfo()
+    public void submit(SheepRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        if (((SheepVariantRenderState) state).variant != null) {
+            AdultAndBabyModelPair<SheepModel> adultAndBabyModelPair = this.models.get(((SheepVariantRenderState) state).variant.assetInfo()
                     .model());
             this.adultModel = adultAndBabyModelPair.getModel(false);
 //            this.babyModel = adultAndBabyModelPair.getModel(true);
-            super.submit(sheepRenderState, poseStack, submitNodeCollector, cameraRenderState);
+            super.submit(state, poseStack, submitNodeCollector, camera);
         }
     }
 }

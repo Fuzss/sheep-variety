@@ -1,7 +1,7 @@
 package fuzs.sheepvariety.fabric.client;
 
-import fuzs.sheepvariety.SheepVariety;
-import fuzs.sheepvariety.client.SheepVarietyClient;
+import fuzs.sheepvariety.common.SheepVariety;
+import fuzs.sheepvariety.common.client.SheepVarietyClient;
 import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
 import net.fabricmc.api.ClientModInitializer;
 

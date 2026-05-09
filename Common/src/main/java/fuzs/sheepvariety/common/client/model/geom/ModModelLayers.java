@@ -1,7 +1,7 @@
-package fuzs.sheepvariety.client.model.geom;
+package fuzs.sheepvariety.common.client.model.geom;
 
 import fuzs.puzzleslib.common.api.client.init.v1.ModelLayerFactory;
-import fuzs.sheepvariety.SheepVariety;
+import fuzs.sheepvariety.common.SheepVariety;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 
 public class ModModelLayers {

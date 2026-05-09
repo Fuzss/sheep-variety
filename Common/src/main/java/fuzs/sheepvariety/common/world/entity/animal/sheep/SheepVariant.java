@@ -1,8 +1,8 @@
-package fuzs.sheepvariety.world.entity.animal.sheep;
+package fuzs.sheepvariety.common.world.entity.animal.sheep;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import fuzs.sheepvariety.init.ModRegistry;
+import fuzs.sheepvariety.common.init.ModRegistry;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;

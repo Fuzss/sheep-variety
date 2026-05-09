@@ -2,8 +2,8 @@ package fuzs.sheepvariety.neoforge;
 
 import fuzs.puzzleslib.common.api.core.v1.ModConstructor;
 import fuzs.puzzleslib.neoforge.api.data.v2.core.DataProviderHelper;
-import fuzs.sheepvariety.SheepVariety;
-import fuzs.sheepvariety.data.ModDataPackRegistriesProvider;
+import fuzs.sheepvariety.common.SheepVariety;
+import fuzs.sheepvariety.common.data.ModDataPackRegistriesProvider;
 import net.neoforged.fml.common.Mod;
 
 @Mod(SheepVariety.MOD_ID)

@@ -1,11 +1,11 @@
-package fuzs.sheepvariety.init;
+package fuzs.sheepvariety.common.init;
 
 import fuzs.puzzleslib.common.api.attachment.v4.DataAttachmentRegistry;
 import fuzs.puzzleslib.common.api.attachment.v4.DataAttachmentType;
 import fuzs.puzzleslib.common.api.network.v4.PlayerSet;
-import fuzs.sheepvariety.SheepVariety;
-import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariant;
-import fuzs.sheepvariety.world.entity.animal.sheep.SheepVariants;
+import fuzs.sheepvariety.common.SheepVariety;
+import fuzs.sheepvariety.common.world.entity.animal.sheep.SheepVariant;
+import fuzs.sheepvariety.common.world.entity.animal.sheep.SheepVariants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;

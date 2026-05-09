@@ -1,7 +1,7 @@
 package fuzs.sheepvariety.neoforge.client;
 
-import fuzs.sheepvariety.SheepVariety;
-import fuzs.sheepvariety.client.SheepVarietyClient;
+import fuzs.sheepvariety.common.SheepVariety;
+import fuzs.sheepvariety.common.client.SheepVarietyClient;
 import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.Mod;
