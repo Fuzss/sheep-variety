@@ -7,13 +7,13 @@ import fuzs.sheepvariety.common.client.model.geom.ModModelLayers;
 import fuzs.sheepvariety.common.client.renderer.entity.SheepVariantRenderer;
 import net.minecraft.client.model.animal.sheep.SheepFurModel;
 import net.minecraft.client.model.animal.sheep.SheepModel;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 
 public class SheepVarietyClient implements ClientModConstructor {
 
     @Override
     public void onRegisterEntityRenderers(EntityRenderersContext context) {
-        context.registerEntityRenderer(EntityType.SHEEP, SheepVariantRenderer::new);
+        context.registerEntityRenderer(EntityTypes.SHEEP, SheepVariantRenderer::new);
     }
 
     @Override

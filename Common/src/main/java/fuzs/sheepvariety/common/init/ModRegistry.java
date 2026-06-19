@@ -12,7 +12,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypeIds;
 
 public class ModRegistry {
     public static final ResourceKey<Registry<SheepVariant>> SHEEP_VARIANT_REGISTRY_KEY = ResourceKey.createRegistryKey(
@@ -26,7 +26,7 @@ public class ModRegistry {
             SheepVariants::bootstrap);
 
     public static final DataAttachmentType<Entity, Holder<SheepVariant>> SHEEP_VARIANT_ATTACHMENT_TYPE = DataAttachmentRegistry.<Holder<SheepVariant>>entityBuilder()
-            .defaultValue((Entity entity) -> entity.getType() == EntityType.SHEEP, (RegistryAccess registries) -> {
+            .defaultValue((Entity entity) -> entity.is(EntityTypeIds.SHEEP), (RegistryAccess registries) -> {
                 return registries.lookupOrThrow(SHEEP_VARIANT_REGISTRY_KEY).getOrThrow(SheepVariants.DEFAULT);
             })
             .persistent(SheepVariant.CODEC)
