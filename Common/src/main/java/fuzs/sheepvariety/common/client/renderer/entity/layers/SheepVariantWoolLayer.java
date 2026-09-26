@@ -65,8 +65,7 @@ public class SheepVariantWoolLayer extends SheepWoolLayer {
                                 LivingEntityRenderer.getOverlayCoords(state, 0.0F),
                                 0XFF000000,
                                 null,
-                                state.outlineColor,
-                                null);
+                                state.outlineColor);
                     }
                 } else {
                     coloredCutoutModelCopyLayerRender(model,

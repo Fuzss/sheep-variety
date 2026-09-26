@@ -9,7 +9,6 @@ import fuzs.sheepvariety.common.world.entity.animal.sheep.SheepVariants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityTypeIds;
@@ -17,14 +16,6 @@ import net.minecraft.world.entity.EntityTypeIds;
 public class ModRegistry {
     public static final ResourceKey<Registry<SheepVariant>> SHEEP_VARIANT_REGISTRY_KEY = ResourceKey.createRegistryKey(
             SheepVariety.id("sheep_variant"));
-    /**
-     * Using this for data generation generates nothing for some reason, so stick with the dedicated data provider for
-     * now.
-     */
-    public static final RegistrySetBuilder REGISTRY_SET_BUILDER = new RegistrySetBuilder().add(
-            SHEEP_VARIANT_REGISTRY_KEY,
-            SheepVariants::bootstrap);
-
     public static final DataAttachmentType<Entity, Holder<SheepVariant>> SHEEP_VARIANT_ATTACHMENT_TYPE = DataAttachmentRegistry.<Holder<SheepVariant>>entityBuilder()
             .defaultValue((Entity entity) -> entity.is(EntityTypeIds.SHEEP), (RegistryAccess registries) -> {
                 return registries.lookupOrThrow(SHEEP_VARIANT_REGISTRY_KEY).getOrThrow(SheepVariants.DEFAULT);
